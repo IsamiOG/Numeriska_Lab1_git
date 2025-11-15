@@ -1,0 +1,4 @@
+Vill skapa en matris som motsvarar in matrisen där på varje index man lägger en siffra för alla olika scenarion. Kan bli flera olika typer. Tänker 0 är ska fortsatt vara död, 1 fortsatt levande, 2 ska födas, 3 ska dö.
+
+Måste hitta sätt att avsluta koden, alltså när har kolonin nått ett stabilt tillstånd. 
+	Tänker att det borde var genom att kolla matrisen som skapas med ändringar för att se om den innehåller ändringar
