@@ -27,6 +27,7 @@ function antal = antalgrannar(A, rad, kol, sz) %funktion som ska ta in en matris
         antal=A(rad-1,kol-1)+A(rad-1,kol)+A(rad-1,kol+1)+A(rad,kol-1)+A(rad,kol+1)+A(rad+1,kol-1)+A(rad+1,kol)+A(rad+1,kol+1);
     end
 end
+%går nog att ändra input b från en matris till ett nummer, då kan man nog ta bort rad, kol som input
 function a = levnadsregler(b, rad, kol, d)%funktion som tar in en matris(b), ett index matrisen (rad, kol) och d som säger om index ska ändras och vad det ska ändras till. Kan sätta d till antal grannar vid ett index
     if b(rad,kol)==1 %olika situation om det finns en levande cell i index eller inte
         if d==2 || d==3
@@ -42,12 +43,17 @@ function a = levnadsregler(b, rad, kol, d)%funktion som tar in en matris(b), ett
         end
     end
 end
-function app()
-    a=matris_maunal;
-    sz=size(a);%(antal rader, antal kolumner)
+function main()
+    load puffer.mat
+    %a=matris_maunal;
+    a=A;
+    spy(a)
+    pause
+    sz=size(a);%(antal rader, antal kolumnerm)
     %behöver lopa igenom hela matrisen och få grannar på varje index på matrisen
     k=0;
-    while k<100
+    c=0;%bara för testing, går att ta bort om man bara vill ha slutresultat
+    while k<10000
         b=[];
         i=1;
         while i<=sz(1)
@@ -69,7 +75,15 @@ function app()
             i=i+1;
         end
         k=k+1;
+        c=c+1;
+        if c==1 %hela if statsen är bara för att visa ändring för felsökning
+            c=0;
+            spy(a)
+            pause(0.01)
+        end
+        %spy(a)
+        %pause
     end
     spy(a)
 end
-app()
+main()
