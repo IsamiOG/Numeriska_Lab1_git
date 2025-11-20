@@ -1,3 +1,4 @@
+%dela upp i funktionsfiler
 clc, clearvars, close all
 function m = matris_maunal%skapar och skickar tillbaka starttillstånd i från figur 3 i uppgiften
     a = zeros(16);
@@ -5,6 +6,7 @@ function m = matris_maunal%skapar och skickar tillbaka starttillstånd i från f
     m=a;
 end
 %kolla med lärare om man får ändra input variabler från A till a
+%{
 function antal = antalgrannar(A, rad, kol, sz) %funktion som ska ta in en matris(A) och index till matrisen (rad och kol) och ange antal grannar till den punkten. La till sz(size) men vet inte om det är tillåtet
     %måste göra något åt så man inte kollar utanför matris
     if rad==1 && kol==1 %börja med om i hörnen
@@ -26,10 +28,12 @@ function antal = antalgrannar(A, rad, kol, sz) %funktion som ska ta in en matris
     else %inte längs kant
         antal=A(rad-1,kol-1)+A(rad-1,kol)+A(rad-1,kol+1)+A(rad,kol-1)+A(rad,kol+1)+A(rad+1,kol-1)+A(rad+1,kol)+A(rad+1,kol+1);
     end
-end
+    end 
+%}
 %går nog att ändra input b från en matris till ett nummer, då kan man nog ta bort rad, kol som input
-function a = levnadsregler(b, rad, kol, d)%funktion som tar in en matris(b), ett index matrisen (rad, kol) och d som säger om index ska ändras och vad det ska ändras till. Kan sätta d till antal grannar vid ett index
-    if b(rad,kol)==1 %olika situation om det finns en levande cell i index eller inte
+%{
+function a = levnadsregler(b, d)%funktion som tar in en matris(b), ett index matrisen (rad, kol) och d som säger om index ska ändras och vad det ska ändras till. Kan sätta d till antal grannar vid ett index
+    if b==1 %olika situation om det finns en levande cell i index eller inte
         if d==2 || d==3
             a=1;
         else
@@ -43,11 +47,12 @@ function a = levnadsregler(b, rad, kol, d)%funktion som tar in en matris(b), ett
         end
     end
 end
+%}
 function main()
     load puffer.mat
     %a=matris_maunal;
     a=A;
-    spy(a)
+    spy(a,'k')
     pause
     sz=size(a);%(antal rader, antal kolumnerm)
     %behöver lopa igenom hela matrisen och få grannar på varje index på matrisen
@@ -69,7 +74,7 @@ function main()
         while i<=sz(1)
             j=1;
             while j<=sz(2)
-                a(i,j)=levnadsregler(a,i,j,b(i,j));
+                a(i,j)=levnadsregler(a(i,j),b(i,j));%skriv så att vi skickar in (a(i,j),b(i,j))
                 j=j+1;
             end
             i=i+1;
@@ -78,7 +83,7 @@ function main()
         c=c+1;
         if c==1 %hela if statsen är bara för att visa ändring för felsökning
             c=0;
-            spy(a)
+            spy(a,6,'k')
             pause(0.01)
         end
         %spy(a)

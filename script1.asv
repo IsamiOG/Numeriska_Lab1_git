@@ -43,11 +43,11 @@ function a = levnadsregler(b, rad, kol, d)%funktion som tar in en matris(b), ett
         end
     end
 end
-function app()
+function main()
     load puffer.mat
     %a=matris_maunal;
     a=A;
-    spy(a)
+    spy(a,'k')
     pause
     sz=size(a);%(antal rader, antal kolumnerm)
     %behöver lopa igenom hela matrisen och få grannar på varje index på matrisen
@@ -76,9 +76,9 @@ function app()
         end
         k=k+1;
         c=c+1;
-        if c==1 %hela if statsen är bara för att visa ändring under k
+        if c==1 %hela if statsen är bara för att visa ändring för felsökning
             c=0;
-            spy(a)
+            spy(a,5,'k')
             pause(0.01)
         end
         %spy(a)
@@ -86,4 +86,4 @@ function app()
     end
     spy(a)
 end
-app()
+main()
