@@ -2,7 +2,6 @@ function antal = antalgrannar(A, rad, kol, sz) %funktion som ska ta in en matris
     %{
     om man inte får skicka in sz i denna function: sz=size(a)
     %}
-    %Vill inte kolla utanför index -> Olika villkor beroende på om det finns risk att kolla utanför index eller inte.
     if rad==1 && kol==1 %Kollar i de fyra hörnen först
         antal=A(rad,kol+1)+A(rad+1,kol+1)+A(rad+1,kol);
     elseif rad==1 && kol==sz(2)
@@ -23,3 +22,4 @@ function antal = antalgrannar(A, rad, kol, sz) %funktion som ska ta in en matris
         antal=A(rad-1,kol-1)+A(rad-1,kol)+A(rad-1,kol+1)+A(rad,kol-1)+A(rad,kol+1)+A(rad+1,kol-1)+A(rad+1,kol)+A(rad+1,kol+1);
     end
 end
+i= tal1 + tal2

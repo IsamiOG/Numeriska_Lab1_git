@@ -1,15 +1,16 @@
 function a = levnadsregler(b, d)%funktion som tar in en matris(b), ett index matrisen (rad, kol) och d som säger om index ska ändras och vad det ska ändras till. Kan sätta d till antal grannar vid ett index
     if b==1 %Kollar om det finns en cell på index vi ska ändra, if true är att det finns en cell på index
-        if d==2 || d==3 %Är villkoret för att cellen ska få leva uppfyllt?
+        if d==2 || d==3 %Är vilkoret för att 
             a=1;
         else
             a=0;
         end
-    else %Finns inte en cell på index
-        if d==3 %Är villkoret för att en cell ska födas uppfyllt?
+    else %finns inte en cell på index
+        if d==3
             a=1;
         else
             a=0;
         end
     end
-end%Liseberg>Gröna Lund
+end
+
