@@ -1,25 +1,3 @@
-function antal = antalgrannar(A, rad, kol, sz) %funktion som ska ta in en matris(A) och index till matrisen (rad och kol) och ange antal grannar till den punkten. La till sz(size) men vet inte om det är tillåtet
-    %{
-    om man inte får skicka in sz i denna function: sz=size(a)
-    %}
-    %Vill inte kolla utanför index -> Olika villkor beroende på om det finns risk att kolla utanför index eller inte.
-    if rad==1 && kol==1 %Kollar i de fyra hörnen först
-        antal=A(rad,kol+1)+A(rad+1,kol+1)+A(rad+1,kol);
-    elseif rad==1 && kol==sz(2)
-        antal=A(rad,kol-1)+A(rad+1,kol-1)+A(rad+1,kol);
-    elseif rad==sz(1) && kol==sz(2)
-        antal=A(rad-1,kol-1)+A(rad-1,kol)+A(rad,kol-1);
-    elseif rad==sz(1) && kol==1
-        antal=A(rad-1,kol)+A(rad-1,kol+1)+A(rad,kol+1);
-    elseif rad==1 %Kollar längs kanterna
-        antal=A(rad,kol-1)+A(rad,kol+1)+A(rad+1,kol-1)+A(rad+1,kol)+A(rad+1,kol+1);
-    elseif rad==sz(1)
-        antal=A(rad,kol-1)+A(rad,kol+1)+A(rad-1,kol-1)+A(rad-1,kol)+A(rad-1,kol+1);
-    elseif kol==1
-        antal=A(rad-1,kol)+A(rad-1,kol+1)+A(rad,kol+1)+A(rad+1,kol)+A(rad+1,kol+1);
-    elseif kol==sz(2)
-        antal=A(rad-1,kol)+A(rad-1,kol-1)+A(rad,kol-1)+A(rad+1,kol)+A(rad+1,kol-1);
-    else %Är inte i något hörn eller längs någon kant
-        antal=A(rad-1,kol-1)+A(rad-1,kol)+A(rad-1,kol+1)+A(rad,kol-1)+A(rad,kol+1)+A(rad+1,kol-1)+A(rad+1,kol)+A(rad+1,kol+1);
-    end
+function antal = antalgrannar(A, rad, kol) %funktion som ska ta in en matris(A) och index till matrisen (rad och kol) och ange antal grannar till den punkten. La till sz(size) men vet inte om det är tillåtet
+    antal=A(rad-1,kol-1)+A(rad-1,kol)+A(rad-1,kol+1)+A(rad,kol-1)+A(rad,kol+1)+A(rad+1,kol-1)+A(rad+1,kol)+A(rad+1,kol+1);
 end

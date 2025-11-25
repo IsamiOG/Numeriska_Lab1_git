@@ -6,48 +6,54 @@ function m = matris_maunal%skapar och skickar tillbaka starttillstånd i från f
     m=a;
 end
 %}
-%{
-function antal = antalgrannar(A, rad, kol, sz) %funktion som ska ta in en matris(A) och index till matrisen (rad och kol) och ange antal grannar till den punkten. La till sz(size) men vet inte om det är tillåtet
-    %måste göra något åt så man inte kollar utanför matris
-    if rad==1 && kol==1 %börja med om i hörnen
-        antal=A(rad,kol+1)+A(rad+1,kol+1)+A(rad+1,kol);
-    elseif rad==1 && kol==sz(2)
-        antal=A(rad,kol-1)+A(rad+1,kol-1)+A(rad+1,kol);
-    elseif rad==sz(1) && kol==sz(2)
-        antal=A(rad-1,kol-1)+A(rad-1,kol)+A(rad,kol-1);
-    elseif rad==sz(1) && kol==1
-        antal=A(rad-1,kol)+A(rad-1,kol+1)+A(rad,kol+1);
-    elseif rad==1 %kolla längs väggarna
-        antal=A(rad,kol-1)+A(rad,kol+1)+A(rad+1,kol-1)+A(rad+1,kol)+A(rad+1,kol+1);
-    elseif rad==sz(1)
-        antal=A(rad,kol-1)+A(rad,kol+1)+A(rad-1,kol-1)+A(rad-1,kol)+A(rad-1,kol+1);
-    elseif kol==1
-        antal=A(rad-1,kol)+A(rad-1,kol+1)+A(rad,kol+1)+A(rad+1,kol)+A(rad+1,kol+1);
-    elseif kol==sz(2)
-        antal=A(rad-1,kol)+A(rad-1,kol-1)+A(rad,kol-1)+A(rad+1,kol)+A(rad+1,kol-1);
-    else %inte längs kant
-        antal=A(rad-1,kol-1)+A(rad-1,kol)+A(rad-1,kol+1)+A(rad,kol-1)+A(rad,kol+1)+A(rad+1,kol-1)+A(rad+1,kol)+A(rad+1,kol+1);
-    end
-    end 
-%}
-%{
-function a = levnadsregler(b, d)%funktion som tar in en matris(b), ett index matrisen (rad, kol) och d som säger om index ska ändras och vad det ska ändras till. Kan sätta d till antal grannar vid ett index
-    if b==1 %olika situation om det finns en levande cell i index eller inte
-        if d==2 || d==3
-            a=1;
-        else
-            a=0;
+function main()
+    %a=matris_maunal;
+    load puffer.mat
+    b=A;
+    sz=size(b);%(antal rader, antal kolumnerm)
+    a=zeros(sz(1)+2,sz(2)+2);
+    a((2:end-1),(2:end-1))=b;
+    %in=input("Hur många generationer ska koden köras för? (snälla skriv en siffra) ");
+    in=input("何世代、先までお見せいたしましょうか？（番号でお願いします）");
+    %in=10000;
+    sz=size(a);
+    spy(a(2:end-1,2:end-1),6,'k')
+    pause(0.01)
+    %plot(a)
+    k=0;
+    while k<in %lopa igenom för antal generationer
+        b=[];
+        i=2; %Lopa igenom matrisen
+        while i<=sz(1)-1
+            j=2;
+            while j<=sz(2)-1
+                b(i,j)=antalgrannar(a,i,j);%kolla om i och j ska byta plats
+                j=j+1;
+            end
+            i=i+1;
         end
-    else
-        if d==3
-            a=1;
-        else
-            a=0;
+        b(sz(1),1:sz(2))=0;
+        %om man vill kolla b här -> spy(b)
+        i=1; %Lopa igenom matrisen
+        while i<=sz(1)
+            j=1;
+            while j<=sz(2)
+                a(i,j)=levnadsregler(a(i,j),b(i,j));
+                j=j+1;
+            end
+            i=i+1;
+        end
+        k=k+1;
+        if mod(k,1)==0 %Hela if-satsen är för att visa matrisen, om man vill ändra antal steg mellan att den visar så ska andra input i mod ändras
+            spy(a(2:end-1,2:end-1),6,'k') %Ändra till plot
+            pause(0.001)
+            %plot(a)
+            %pause
         end
     end
 end
-%}
-function main()
+%{
+function main_2()
     %a=matris_maunal;
     load puffer.mat
     a=A;
@@ -89,4 +95,5 @@ function main()
         end
     end
 end
+%}
 main()
