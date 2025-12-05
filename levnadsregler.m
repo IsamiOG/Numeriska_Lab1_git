@@ -12,4 +12,4 @@ function a = levnadsregler(b, d)%Tar in två tal där b kan vara 0 eller 1 (repr
             a=0;
         end
     end
-end%Liseberg>Gröna Lund
+end

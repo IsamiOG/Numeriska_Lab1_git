@@ -1,24 +1,23 @@
 clc, clearvars, close all
-
+%{
 function m = matris_maunal%skapar och skickar tillbaka starttillstånd i från figur 3 i uppgiften
     a = zeros(16);
     a(5:9,5)=1; a(5,7:11)=1; a(11,5:9)=1; a(7:11,11)=1;
     m=a;
 end
-
+%}
 function main()
     load puffer.mat
     b=A;
     sz=size(b);%(antal rader, antal kolumnerm)
     a=zeros(sz(1)+2,sz(2)+2);
     a((2:end-1),(2:end-1))=b; %matris a är en noll matris som vi lägger matris b i med en ram av nollor kvar
-    %in=input("Hur många generationer ska koden köras för? (snälla skriv en siffra) ");
-    in=input("何世代、先までお見せいたしましょうか？（番号でお願いします）");
+    in=input("Hur många generationer ska koden köras för? (snälla skriv en siffra) ");
     %in=10000;
     %a=matris_maunal;
     sz=size(a);
     spy(a(2:end-1,2:end-1),6,'k')
-    pause(0.01)
+    drawnow
     k=0;
     while k<in %lopa igenom för antal generationer
         b=[]; %Matris som kommer hålla antal grannar
@@ -33,8 +32,6 @@ function main()
         end
         %matris a är celler och matris b är antal grannar
         %Har kollat alla grannar här
-        %b(sz(1),1:sz(2))=0;
-        %om man vill kolla b här -> spy(b)
         i=2; %Lopa igenom matrisen igen för att ändra matrisen efter levandsregler
         while i<=sz(1)-1
             j=2;
@@ -46,54 +43,10 @@ function main()
         end
         k=k+1;
         if mod(k,1)==0 %Hela if-satsen är för att visa matrisen, om man vill ändra antal steg mellan att den visar så ska andra input i mod ändras
-            spy(a(2:end-1,2:end-1),6,'k') %Ändra till plot
-            pause(0.001)
-            %plot(a)
+            spy(a(2:end-1,2:end-1),6,'k') 
+            drawnow
         end
     end
 end
-%{
-function main_2()
-    %a=matris_maunal;
-    load puffer.mat
-    a=A;
-    %in=input("Hur många generationer ska koden köras för? (snälla skriv en siffra) ");
-    in=input("何世代、先までお見せいたしましょうか？（番号でお願いします）");
-    %in=10000;
-    spy(a,6,'k')
-    pause(0.01)
-    sz=size(a);%(antal rader, antal kolumnerm)
-    %plot(a)
-    k=0;
-    while k<in %lopa igenom för antal generationer
-        b=[];
-        i=1; %Lopa igenom matrisen
-        while i<=sz(1)
-            j=1;
-            while j<=sz(2)
-                b(i,j)=antalgrannar_2(a,i,j,sz);%kolla om i och j ska byta plats
-                j=j+1;
-            end
-            i=i+1;
-        end
-        %om man vill kolla b här -> spy(b)
-        i=1; %Lopa igenom matrisen
-        while i<=sz(1)
-            j=1;
-            while j<=sz(2)
-                a(i,j)=levnadsregler(a(i,j),b(i,j));
-                j=j+1;
-            end
-            i=i+1;
-        end
-        k=k+1;
-        if mod(k,1)==0 %Hela if-satsen är för att visa matrisen, om man vill ändra antal steg mellan att den visar så ska andra input i mod ändras
-            spy(a,6,'k') %Ändra till plot
-            pause(0.01)
-            %plot(a)
-            %pause
-        end
-    end
-end
-%}
-main_2()
+
+main()
